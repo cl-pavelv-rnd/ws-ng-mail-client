@@ -1,0 +1,58 @@
+host: localhost
+
+app:
+  name: wsng
+
+server:
+  port: 8206
+
+spring:
+  application:
+    name: mail-client-runner
+
+  kafka:
+    bootstrap-servers: ${host}:9092
+
+    properties:
+      schema.registry.url: http://${host}:8081
+
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+
+mail-client-runner:
+  emails-pull-delay: 20 # in seconds
+  users-pull-delay: 60 # in minutes
+
+  imap:
+    protocol: imaps
+    email-host: imap.googlemail.com
+    email-port: 993
+    user: ${mail-client.google.address}
+    password: ${mail-client.google.password}
+    folder-name: inbox
+
+  ews:
+    token-provider-url: SOME_TOKEN_PROVIDER_URL
+    ews-url: SOME_EWS_URL
+
+  user-validation:
+    domain:
+      whitelist: gmail.com,rnd-hub.com
+
+  kafka:
+    output-topic:
+      name: ${app.name}.mail-client.external-messages
+      partitions: 1
+      replicas: 1
+
+services:
+  user-dir:
+    host: ${host}
+    port: 12015
+    url: http://${services.user-dir.host}:${services.user-dir.port}
+
+mail-client:
+  google:
+    address: ws.rnd.local@gmail.com
+    password: AAAaaa123

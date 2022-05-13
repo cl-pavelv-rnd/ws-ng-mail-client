@@ -1,0 +1,64 @@
+host: localhost
+
+app:
+  name: wsng
+
+spring:
+  application:
+    name: mail-client-listener
+
+  kafka:
+    bootstrap-servers: ${host}:9092
+
+    properties:
+      schema.registry.url: http://${host}:8081
+
+    consumer:
+      group-id: ${app.name}.${spring.application.name}
+      auto-offset-reset: latest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+      properties:
+        specific.avro.reader: true
+
+mail-client-listener:
+  imap:
+    protocol: imaps
+    email-host: imap.googlemail.com
+    email-port: 993
+    user: ${mail-client.google.address}
+    password: ${mail-client.google.password}
+    folder-name: inbox
+
+  ews:
+    token-provider-url: SOME_TOKEN_PROVIDER_URL
+    ews-url: SOME_EWS_URL
+
+  kafka:
+    input-topic:
+      name: ${app.name}.mail-client.external-messages
+      partitions: 1
+      replicas: 1
+
+services:
+  entities:
+    host: ${host}
+    port: 12020
+    url: http://${services.entities.host}:${services.entities.port}/entities
+  content-management:
+    host: ${host}
+    port: 12050
+    url: http://${services.content-management.host}:${services.content-management.port}/contentManagement
+  links:
+    host: ${host}
+    port: 12030
+    url: http://${services.links.host}:${services.links.port}
+  permissions:
+    host: ${host}
+    port: 12021
+    url: http://${services.permissions.host}:${services.permissions.port}/permissions
+
+mail-client:
+  google:
+    address: ws.rnd.local@gmail.com
+    password: AAAaaa123

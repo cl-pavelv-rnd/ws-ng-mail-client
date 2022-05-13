@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.ws.ng</groupId>
+    <artifactId>ws-ng-mail-client</artifactId>
+    <version>0.0.42</version>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>mail-client-avro</module>
+        <module>mail-client-datamodel</module>
+        <module>mail-client-connector</module>
+        <module>mail-client-listener</module>
+        <module>mail-client-runner</module>
+    </modules>
+    
+    <distributionManagement>
+        <repository>
+            <id>snapshots</id>
+            <name>ws-maven</name>
+            <url>https://artifactory.rnd-hub.com:443/artifactory/ws-maven</url>
+        </repository>
+    </distributionManagement>
+
+</project>

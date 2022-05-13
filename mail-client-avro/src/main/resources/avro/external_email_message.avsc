@@ -1,0 +1,99 @@
+{
+  "namespace": "com.ws.ng.mail_client_avro",
+  "type": "record",
+  "name": "ExternalEmailMessageEvent",
+  "fields": [
+    {
+      "name": "id",
+      "type": "string"
+    },
+    {
+      "name": "subject",
+      "type": [
+        "null",
+        "string"
+      ],
+      "default": null
+    },
+    {
+      "name": "sentDate",
+      "type": "long",
+      "logicalType": "timestamp-millis"
+    },
+    {
+      "name": "receivedDate",
+      "type": "long",
+      "logicalType": "timestamp-millis"
+    },
+    {
+      "name": "from",
+      "type": [
+        "null",
+        {
+          "type": "record",
+          "name": "EmailAddress",
+          "fields": [
+            {
+              "name": "username",
+              "type": [
+                "null",
+                "string"
+              ],
+              "default": null
+            },
+            {
+              "name": "address",
+              "type": [
+                "null",
+                "string"
+              ],
+              "default": null
+            },
+            {
+              "name": "displayName",
+              "type": [
+                "null",
+                "string"
+              ],
+              "default": null
+            }
+          ]
+        }
+      ],
+      "default": null
+    },
+    {
+      "name": "to",
+      "type": [
+        "null",
+        {
+          "type": "array",
+          "items": "EmailAddress"
+        }
+      ],
+      "default": null
+    },
+    {
+      "name": "cc",
+      "type": [
+        "null",
+        {
+          "type": "array",
+          "items": "EmailAddress"
+        }
+      ],
+      "default": null
+    },
+    {
+      "name": "bcc",
+      "type": [
+        "null",
+        {
+          "type": "array",
+          "items": "EmailAddress"
+        }
+      ],
+      "default": null
+    }
+  ]
+}
